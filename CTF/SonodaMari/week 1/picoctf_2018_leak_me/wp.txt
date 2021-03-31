@@ -1,0 +1,4 @@
+wp
+输入与s偏移为0x100
+输入0x100个字符 可以打印出password
+直接输入password即可
