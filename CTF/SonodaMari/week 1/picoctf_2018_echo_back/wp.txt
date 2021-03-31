@@ -1,0 +1,5 @@
+wp
+先更改puts got为vuln(或者fini_array 改天试试)使得原本只有一次的输入可以多次利用
+然后通过输入 system.got%offset$s得到system的地址
+最后将printf got替换为systemaddr
+传入binsh从而getshell
