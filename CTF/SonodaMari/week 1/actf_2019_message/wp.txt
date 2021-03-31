@@ -1,0 +1,7 @@
+wp
+咱也不知道为啥这简单题目做这么久。。。
+有一个double free
+fake chunk到bss段数组
+泄露libc
+然后正常用og打malloc失败
+把freehook改为system来getshell
