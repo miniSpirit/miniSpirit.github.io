@@ -1,0 +1,5 @@
+wp
+学到了很多
+
+首先有一个uaf漏洞 可用于泄漏heap_base
+然后通过更改fd控制heap_base+0x80以完成leak以及攻打hook等一系列操作
