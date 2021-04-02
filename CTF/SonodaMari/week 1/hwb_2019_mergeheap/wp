@@ -1,0 +1,4 @@
+wp
+挺有意思一道题
+利用strcpy函数构造overlap
+然后正常搭freehook
