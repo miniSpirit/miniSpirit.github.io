@@ -1,0 +1,26 @@
+type misc/web
+name 你会日志分析吗
+point 21pt
+
+本题是一个misc的log文件形式，但是查看log文件内容可以发现这是一个sql时间盲注的过程
+
+按照sql注入的测试步骤
+依次是查询数据库名，查询表名，查询字段名，查询字段值
+
+log文件对这四个过程都进行了记录
+并且查到了前三个的结果
+库名web1
+表名flllag
+字段名flag
+但是没有字段具体值
+因此猜测flag字段的值就是结果
+
+观察测试步骤，发现大多数记录的状态码都是399，少数是377
+推测377为成功结果
+
+逐步对flag字段进行猜解，得到一个32位字符串
+ZmxhZ3tZb3VfYXJlX3NvX2dyZWF0fQ==
+观察其格式发现为base64
+
+解码得到flag
+flag{You_are_so_great}
