@@ -1,0 +1,30 @@
+备份文件
+包含php基本知识
+
+看题备份文件，直接dirmap扫目录，注意线程调低不然扫不到
+
+发现index.php.bak 下载
+
+读源码
+<?php
+include_once "flag.php";
+
+if(isset($_GET['key'])) {
+    $key = $_GET['key'];
+    if(!is_numeric($key)) {
+        exit("Just num!");
+    }
+    $key = intval($key);
+    $str = "123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3";
+    if($key == $str) {
+        echo $flag;
+    }
+}
+else {
+    echo "Try to find out source file!";
+}
+
+重点在于判断 == 是弱等
+php中int类型与string类型不能直接比较，会把string转化为int，并将第一个非数字字符及以后所有内容全部截掉。
+因此只需
+url/index.php?key=123即可

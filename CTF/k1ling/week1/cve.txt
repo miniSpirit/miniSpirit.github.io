@@ -1,0 +1,18 @@
+hint是cve-2020-7066
+百度或者google
+
+get_headers()与url一起使用时，url会被00截断
+
+题目要求 just view *.ctfhub.com
+但是界面消息头的date字段的hint Flag in localhost
+即只能本地访问
+
+因此需要构造paylaod
+/?url=http://127.0.0.1%00.ctfhub.com
+得到提示 end with 123
+改为
+/?url=http://127.0.0.123%00.ctfhub.com
+得到flag
+
+本题难度在于00截断的利用方式
+一般来讲00截断都会有一个固定的后缀但是与前面内容完全不同或者冲突，通过00将后面内容截断，因此本题想要得知从本地访问还是需要仔细查看消息头。

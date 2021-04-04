@@ -1,0 +1,22 @@
+http题目 经典套娃
+随便登陆一下
+burp抓包看下 
+发现99年之后才有
+改时间，time字段变大
+
+要求本地访问
+X-Forwarded-For or Client-ip
+第一个被ban了因此选第二个
+
+要求来源于gem-love.com
+添加Referer
+
+要求commodore64浏览器
+改User-Agent
+
+要求邮箱 root@gem-love.com
+添加From
+
+只针对y1ng.vip
+添加代理via
+最后拿到flag
