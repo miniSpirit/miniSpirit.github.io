@@ -1,0 +1,4 @@
+wp
+之前寒假里的一场比赛的pwn用到了fastbin_dup_consolidate 但当时没做出来 这道题来复习一下
+malloc一个小堆free掉进入fastbin 当再次malloc一个很大的堆时 fastbin里的堆会被取出进入smallbin 可以通过uaf再次free即可完成doublefree 再利用下一个chunk的preuse位为0 通过这个完成unlink攻击
+然后该干啥就干啥
