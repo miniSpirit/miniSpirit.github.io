@@ -1,0 +1,5 @@
+Table = [0x2a, 0xd7, 0x92, 0xe9, 0x53, 0xe2, 0xc4, 0xcd]
+Target = "dbappsec"
+hEx = []
+for i in range(8) :
+    print(hex(Table[i] ^ ord(Target[i])).replace("0x", ""), end="")
