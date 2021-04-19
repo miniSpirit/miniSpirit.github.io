@@ -1,0 +1,6 @@
+关于.git泄露问题
+使用dirsearch先找到出现问题的git文件
+然后利用githack找到之前的版本
+emm因为dirsearch一直跑不了
+我决定学kali来做题了
+这两周事也比较多，一直没来得及刷题
